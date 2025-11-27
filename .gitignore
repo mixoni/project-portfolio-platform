@@ -1,0 +1,119 @@
+# ----------------------------------------
+#  Node / NPM
+# ----------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ----------------------------------------
+#  Nx & Angular cache / build
+# ----------------------------------------
+dist/
+build/
+.tmp/
+.angular/
+.nx/
+.cache/
+.esbuild/
+vite.config.ts.timestamp*
+
+# Angular CLI
+.angular/cache/
+.angular/cache/**
+.angular/*.cache
+.angular/cache/*
+
+# ----------------------------------------
+#  TypeScript
+# ----------------------------------------
+*.tsbuildinfo
+*.tsbuildinfo.*
+
+# ----------------------------------------
+#  Environment files (NE SMEJU U GIT)
+# ----------------------------------------
+.env
+.env.*
+!.env.example
+
+# ----------------------------------------
+#  Cypress
+# ----------------------------------------
+cypress/videos/
+cypress/screenshots/
+cypress/tmp/
+cypress/downloads/
+cypress/results/
+.cypress-cache/
+
+# ----------------------------------------
+# Storybook
+# ----------------------------------------
+storybook-static/
+.out/
+.sass-cache/
+.cache-loader/
+
+# ----------------------------------------
+#  Testing (Jest)
+# ----------------------------------------
+coverage/
+reports/
+test-results/
+.jest/
+
+# ----------------------------------------
+#  IDE / Editor
+# ----------------------------------------
+.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+
+.idea/
+*.iml
+
+# ----------------------------------------
+#  Logs
+# ----------------------------------------
+logs/
+*.log
+npm-debug.log*
+lerna-debug.log*
+
+# ----------------------------------------
+#  Docker
+# ----------------------------------------
+docker-data/
+docker-volumes/
+**/docker-compose.override.yml
+
+# ----------------------------------------
+#  OS specific
+# ----------------------------------------
+.DS_Store
+Thumbs.db
+
+# ----------------------------------------
+#  Misc
+# ----------------------------------------
+*.local
+*.backup
+*.bak
+
+# ----------------------------------------
+#  Optional: Remove generated API clients
+# ----------------------------------------
+/generated/
+/api-client/
+
+# ----------------------------------------
+#  Optional: Nx plugin caches
+# ----------------------------------------
+.nx/cache/

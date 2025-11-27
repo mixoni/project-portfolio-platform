@@ -1,0 +1,5 @@
+{
+  "name": "portfolio-data-access",
+  "projectType": "library",
+  "sourceRoot": "libs/portfolio/data-access/src"
+}

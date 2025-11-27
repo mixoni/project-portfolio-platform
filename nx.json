@@ -1,0 +1,12 @@
+{
+  "extends": "nx/presets/npm.json",
+  "npmScope": "portfolio",
+  "affected": {
+    "defaultBase": "main"
+  },
+  "generators": {
+    "@nx/angular:component": {
+      "style": "css"
+    }
+  }
+}

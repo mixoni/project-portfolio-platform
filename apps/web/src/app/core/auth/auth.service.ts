@@ -23,4 +23,12 @@ export class AuthService {
   logout() {
     this.store.clear();
   }
+
+  getToken(): string | null {
+    return this.store.token();
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.store.token();
+  }
 }

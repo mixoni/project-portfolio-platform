@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Project } from './models/project.model';
 import { Observable } from 'rxjs';
 
@@ -10,9 +10,11 @@ export class ProjectsApi {
   constructor(private http: HttpClient) {}
 
   getProjects(filter?: { status?: string; owner?: string }): Observable<Project[]> {
-    return this.http.get<Project[]>(`${this.apiUrl}/projects`, {
-      params: filter as any,
-    });
+    let params = new HttpParams();
+    if (filter?.status) params = params.set('status', filter.status);
+    if (filter?.owner) params = params.set('owner', filter.owner);
+
+    return this.http.get<Project[]>(`${this.apiUrl}/projects`, { params });
   }
 
   getProject(id: number): Observable<Project> {

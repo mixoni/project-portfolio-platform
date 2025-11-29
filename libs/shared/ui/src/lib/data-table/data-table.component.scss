@@ -1,0 +1,43 @@
+:host {
+    display: block;
+  }
+  
+  .pp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: #ffffff;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+  }
+  
+  .pp-table thead {
+    background: #f9fafb;
+  }
+  
+  .pp-table th,
+  .pp-table td {
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+    white-space: nowrap;
+  }
+  
+  .pp-table th {
+    font-weight: 600;
+    color: #111827;
+    font-size: 13px;
+  }
+  
+  .pp-table tbody tr:hover {
+    background: #f3f4f6;
+  }
+  
+  .pp-empty {
+    text-align: center;
+    padding: 1rem;
+    color: #6b7280;
+    font-size: 14px;
+  }
+  

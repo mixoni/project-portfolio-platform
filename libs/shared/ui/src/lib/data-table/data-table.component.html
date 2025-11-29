@@ -1,0 +1,29 @@
+<table class="pp-table" *ngIf="columns?.length; else noColumns">
+  <thead>
+    <tr>
+      <th *ngFor="let col of columns">
+        {{ col.header }}
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let row of rows; trackBy: trackByIndex">
+      <td *ngFor="let col of columns">
+        {{ getCell(row, col) }}
+      </td>
+    </tr>
+
+    <tr *ngIf="rows.length === 0">
+      <td [attr.colspan]="columns.length" class="pp-empty">
+        No data to display
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #noColumns>
+  <div class="pp-empty">
+    No columns configured
+  </div>
+</ng-template>

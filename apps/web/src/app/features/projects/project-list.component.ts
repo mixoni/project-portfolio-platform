@@ -106,4 +106,8 @@ export class ProjectListComponent implements OnInit {
       },
     });
   }
+
+  onProjectRowClick(project: Project) {
+    console.log('Clicked project:', project);
+  }
 }

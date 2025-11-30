@@ -1,43 +1,106 @@
 :host {
     display: block;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      sans-serif;
+    font-size: 0.875rem;
+    color: #0f172a;
   }
   
+  /* Wrapper oko tabele (scroll, border, radius) */
+  .pp-table-wrapper {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    overflow: auto;
+    max-height: 480px;
+    background-color: #ffffff;
+  }
+  
+  /* Tabela */
   .pp-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 14px;
-    background: #ffffff;
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+    min-width: 640px;
   }
   
-  .pp-table thead {
-    background: #f9fafb;
-  }
+  /* Header */
+  .pp-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
   
-  .pp-table th,
-  .pp-table td {
-    padding: 0.6rem 0.9rem;
-    border-bottom: 1px solid #e5e7eb;
     text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  
+    background: #0f172a;
+    color: #e5e7eb;
+    border-bottom: 1px solid #1e293b;
+  }
+  
+  /* Ćelije */
+  .pp-table tbody td {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid #e5e7eb;
     white-space: nowrap;
   }
   
-  .pp-table th {
-    font-weight: 600;
-    color: #111827;
-    font-size: 13px;
+  /* Zebra efekat */
+  .pp-table tbody tr:nth-child(even) td {
+    background-color: #f9fafb;
   }
   
-  .pp-table tbody tr:hover {
-    background: #f3f4f6;
+  /* Hover – ako je clickable */
+  .pp-row-clickable {
+    cursor: pointer;
+    transition: background-color 120ms ease-out;
   }
   
+  .pp-row-clickable:hover td {
+    background-color: #e5f0ff;
+  }
+  
+  /* Prazna tabela */
   .pp-empty {
     text-align: center;
-    padding: 1rem;
+    padding: 1.5rem;
+    font-size: 0.85rem;
     color: #6b7280;
-    font-size: 14px;
+  }
+  
+  /* Loading skeleton */
+  .pp-table-wrapper.pp-loading {
+    padding: 0.75rem 1rem;
+  }
+  
+  .pp-skeleton-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .pp-skeleton-cell {
+    height: 0.9rem;
+    border-radius: 999px;
+    background: linear-gradient(
+      90deg,
+      #e5e7eb 0%,
+      #f3f4f6 40%,
+      #e5e7eb 100%
+    );
+    background-size: 200% 100%;
+    animation: pp-skeleton 1.4s ease-in-out infinite;
+  }
+  
+  @keyframes pp-skeleton {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
   }
   

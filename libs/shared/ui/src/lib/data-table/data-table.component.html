@@ -1,29 +1,43 @@
-<table class="pp-table" *ngIf="columns?.length; else noColumns">
-  <thead>
-    <tr>
-      <th *ngFor="let col of columns">
-        {{ col.header }}
-      </th>
-    </tr>
-  </thead>
+<div class="pp-table-wrapper" [class.pp-loading]="loading">
+  <ng-container *ngIf="loading; else tableContent">
+    <div class="pp-skeleton-row" *ngFor="let _ of [0, 1, 2, 3]">
+      <div class="pp-skeleton-cell" *ngFor="let __ of columns"></div>
+    </div>
+  </ng-container>
 
-  <tbody>
-    <tr *ngFor="let row of rows; trackBy: trackByIndex">
-      <td *ngFor="let col of columns">
-        {{ getCell(row, col) }}
-      </td>
-    </tr>
+  <ng-template #tableContent>
+    <table class="pp-table" *ngIf="columns?.length; else noColumns">
+      <thead>
+        <tr>
+          <th *ngFor="let col of columns">
+            {{ col.header }}
+          </th>
+        </tr>
+      </thead>
 
-    <tr *ngIf="rows.length === 0">
-      <td [attr.colspan]="columns.length" class="pp-empty">
-        No data to display
-      </td>
-    </tr>
-  </tbody>
-</table>
+      <tbody>
+        <tr
+          *ngFor="let row of rows; trackBy: trackByIndex"
+          (click)="onRowClicked(row)"
+          [class.pp-row-clickable]="clickableRows"
+        >
+          <td *ngFor="let col of columns">
+            {{ getCell(row, col) }}
+          </td>
+        </tr>
 
-<ng-template #noColumns>
-  <div class="pp-empty">
-    No columns configured
-  </div>
-</ng-template>
+        <tr *ngIf="rows.length === 0">
+          <td [attr.colspan]="columns.length" class="pp-empty">
+            {{ emptyMessage }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-template>
+
+  <ng-template #noColumns>
+    <div class="pp-empty">
+      No columns configured
+    </div>
+  </ng-template>
+</div>

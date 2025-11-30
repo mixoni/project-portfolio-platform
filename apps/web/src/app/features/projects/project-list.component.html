@@ -1,51 +1,49 @@
 <section class="projects-page">
     <header class="projects-header">
-      <div>
-        <h1 class="page-title">Project Portfolio Demo</h1>
-        <p class="page-subtitle">Projects</p>
-      </div>
-  
-      <div class="header-actions">
-        <a routerLink="/projects/new" class="btn-primary">+ New project</a>
-        <button class="btn-secondary" type="button" (click)="reload()" [disabled]="loading()">
-          {{ loading() ? 'Loading…' : 'Reload' }}
-        </button>
-      </div>
+        <div>
+            <h1 class="page-title">Project Portfolio Demo</h1>
+            <p class="page-subtitle">Projects</p>
+        </div>
+
+        <div class="header-actions">
+            <a routerLink="/projects/new" class="btn-primary">+ New project</a>
+            <button class="btn-secondary" type="button" (click)="reload()" [disabled]="loading()">
+                {{ loading() ? 'Loading…' : 'Reload' }}
+            </button>
+        </div>
     </header>
-  
+
     <section class="projects-filters">
-      <label>
-        Status
-        <select [(ngModel)]="statusFilterModel">
-          <option value="ALL">All</option>
-          <option value="PLANNED">Planned</option>
-          <option value="IN_PROGRESS">In progress</option>
-          <option value="COMPLETED">Completed</option>
-        </select>
-      </label>
-  
-      <label>
-        Owner
-        <input
-          type="text"
-          placeholder="e.g. admin"
-          [(ngModel)]="ownerFilterModel"
-        />
-      </label>
+        <label>
+            Status
+            <select [(ngModel)]="statusFilterModel">
+                <option value="ALL">All</option>
+                <option value="PLANNED">Planned</option>
+                <option value="IN_PROGRESS">In progress</option>
+                <option value="COMPLETED">Completed</option>
+            </select>
+        </label>
+
+        <label>
+            Owner
+            <input type="text" placeholder="e.g. admin" [(ngModel)]="ownerFilterModel" />
+        </label>
     </section>
-  
+
     <div *ngIf="error()" class="alert-error">
-      {{ error() }}
+        {{ error() }}
     </div>
-  
-    <shared-data-table
-      class="projects-table"
-      [rows]="projects()"
-      [columns]="columns">
+
+    <shared-data-table 
+        [rows]="projects()" 
+        [columns]="columns" 
+        [loading]="loading()"
+        [emptyMessage]="'No projects found'" 
+        [clickableRows]="true"
+        (rowClick)="onProjectRowClick($event)">
     </shared-data-table>
-  
+
     <div class="loading-indicator" *ngIf="loading()">
-      Loading projects…
+        Loading projects…
     </div>
-  </section>
-  
+</section>

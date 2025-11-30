@@ -1,8 +1,13 @@
 {
-    "extends": "./tsconfig.base.json",
-    "compilerOptions": {},
-    "files": [],
-    "include": [],
-    "references": []
-  }
-  
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": { 
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "files": [],
+  "include": [],
+  "references": [
+    { "path": "./apps/web/tsconfig.app.json" },
+    { "path": "./apps/api/tsconfig.app.json" },
+  ]
+}

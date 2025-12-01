@@ -1,10 +1,12 @@
 <section class="page-section">
-    <h2>Create project</h2>
+    <h2>Edit project</h2>
   
     <portfolio-project-form
-      [loading]="saving()"
+      [initialValue]="project()"
+      [loading]="loading()"
       [saving]="saving()"
       [error]="error()"
+      appearance="compact"
       (submitted)="onSubmit($event)"
       (cancelled)="onCancel()"
     ></portfolio-project-form>

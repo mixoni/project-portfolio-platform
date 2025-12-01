@@ -9,3 +9,8 @@ export type ColumnDef<T extends Record<string, any>> = {
     cell?: (row: T) => string | number;
   };
   
+  export interface RowAction {
+    id: string;     
+    label: string;  
+    kind?: 'default' | 'danger';
+  }

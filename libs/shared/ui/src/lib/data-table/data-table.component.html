@@ -12,34 +12,53 @@
           <th *ngFor="let col of columns">
             {{ col.header }}
           </th>
+    
+          <th *ngIf="actions.length"></th>
         </tr>
       </thead>
-
+    
       <tbody>
-        <tr
-          *ngFor="let row of rows; trackBy: trackByIndex"
-          (click)="onRowClicked(row)"
-          [class.pp-row-clickable]="clickableRows"
-        >
+        <tr *ngFor="let row of rows; let i = index; trackBy: trackByIndex">
           <td *ngFor="let col of columns">
             {{
-              getCell(row, col)
-                | displayValue:
-                    (col.emptyPlaceholder || '—'):
-                    (col.format || 'text'):
-                    undefined:
-                    (col.currency || 'EUR')
+              getCell(row, col) | displayValue:(col.emptyPlaceholder || '—'):(col.format || 'text'):undefined:(col.currency || 'EUR')
             }}
           </td>
+    
+          <td *ngIf="actions.length" class="pp-actions-cell">
+            <div class="pp-actions-wrapper">
+              <button
+                type="button"
+                class="pp-actions-trigger"
+                (click)="toggleMenu(i, $event)"
+              >
+                ⋮
+              </button>
+    
+              <ul
+                *ngIf="openMenuIndex === i"
+                class="pp-actions-menu"
+              >
+                <li
+                  *ngFor="let a of actions"
+                  (click)="onActionClick(a.id, row, $event)"
+                  [class.pp-actions-item-danger]="a.kind === 'danger'"
+                >
+                  {{ a.label }}
+                </li>
+              </ul>
+            </div>
+          </td>
         </tr>
-
-        <tr *ngIf="rows.length === 0">
-          <td [attr.colspan]="columns.length" class="pp-empty">
+    
+        <tr *ngIf="!rows.length && !loading">
+          <td [attr.colspan]="columns.length + (actions.length ? 1 : 0)" class="pp-empty">
             {{ emptyMessage }}
           </td>
         </tr>
       </tbody>
     </table>
+    
   </ng-template>
 
   <ng-template #noColumns>

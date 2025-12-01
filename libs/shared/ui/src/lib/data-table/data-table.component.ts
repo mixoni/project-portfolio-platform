@@ -1,7 +1,7 @@
 // data-table.component.ts
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { ColumnDef } from '../table-types';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ColumnDef, RowAction } from '../table-types';
 import { DisplayValuePipe } from '../pipes/display-value/display-value.pipe';
 
 @Component({
@@ -17,6 +17,11 @@ export class DataTableComponent<T extends Record<string, any>> {
   @Input() loading = false;
   @Input() clickableRows = false;
   @Input() emptyMessage = 'No data to display';
+  @Input() actions: RowAction[] = [];
+
+  @Output() action = new EventEmitter<{ actionId: string; row: T }>();
+
+  openMenuIndex: number | null = null;
 
   trackByIndex = (index: number, _row: unknown) => index;
 
@@ -28,7 +33,19 @@ export class DataTableComponent<T extends Record<string, any>> {
     return row[key] ?? null;
   }
 
-  onRowClicked(_row: T) {
-    // opcionalno: emit event ako ti treba
+  toggleMenu(index: number, event: MouseEvent) {
+    event.stopPropagation();
+    this.openMenuIndex = this.openMenuIndex === index ? null : index;
   }
+
+  closeMenu() {
+    this.openMenuIndex = null;
+  }
+
+  onActionClick(actionId: string, row: T, event: MouseEvent) {
+    event.stopPropagation();
+    this.action.emit({ actionId, row });
+    this.closeMenu();
+  }
+
 }

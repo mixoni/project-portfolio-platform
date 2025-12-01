@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 import { Project, ProjectsApi } from '@portfolio/data-access';
-import { ColumnDef, DataTableComponent } from '@shared/ui';
+import { ColumnDef, DataTableComponent, RowAction } from '@shared/ui';
 
 @Component({
   selector: 'app-project-list',
@@ -15,19 +15,18 @@ import { ColumnDef, DataTableComponent } from '@shared/ui';
 })
 export class ProjectListComponent implements OnInit {
   private readonly api = inject(ProjectsApi) as ProjectsApi;
+  private router = inject(Router);
 
-  // state
   private readonly _projects = signal<Project[]>([]);
   readonly projects = this._projects.asReadonly();
 
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
 
-  // filters (signals)
+
   private readonly _statusFilter = signal<'ALL' | 'PLANNED' | 'IN_PROGRESS' | 'COMPLETED'>('ALL');
   private readonly _ownerFilter = signal('');
 
-  // bridge for ngModel (Angular does not directly recognize signals)
   get statusFilterModel() {
     return this._statusFilter();
   }
@@ -103,7 +102,37 @@ export class ProjectListComponent implements OnInit {
     });
   }
 
-  onProjectRowClick(project: Project) {
-    console.log('Clicked project:', project);
+  readonly rowActions: RowAction[] = [
+    { id: 'edit', label: 'Edit project' },
+    { id: 'delete', label: 'Delete project', kind: 'danger' },
+  ];
+
+  onRowAction(event: { actionId: string; row: Project }) {
+    const { actionId, row } = event;
+    if (!row?.id) return;
+
+    if (actionId === 'edit') {
+      this.router.navigate(['/projects', row.id, 'edit']);
+    }
+
+    if (actionId === 'delete') {
+      this.confirmDelete(row);
+    }
   }
+
+  private confirmDelete(project: Project) {
+    const ok = window.confirm(`Delete project "${project.name}"?`);
+    if (!ok || !project.id) return;
+
+    this.api.deleteProject(project.id).subscribe({
+      next: () => {
+        this._projects.update(list => list.filter(p => p.id !== project.id));
+      },
+      error: (err) => {
+        console.error(err);
+        this.error.set('Failed to delete project');
+      },
+    });
+  }
+
 }

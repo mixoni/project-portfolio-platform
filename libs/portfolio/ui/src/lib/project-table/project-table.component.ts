@@ -1,8 +1,7 @@
 import { Component, Input, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Project } from '@portfolio/data-access';
-import { ColumnDef } from '@shared/ui';
-import { DataTableComponent } from '@shared/ui/data-table';
+import { ColumnDef, DataTableComponent } from '@shared/ui';
 
 @Component({
   selector: 'portfolio-project-table',

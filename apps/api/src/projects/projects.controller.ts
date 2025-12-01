@@ -8,6 +8,7 @@ import {
   Query,
   UseGuards,
   ParseIntPipe,
+  Delete,
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { JwtAuthGuard } from '../auth/jwt.guard';
@@ -64,5 +65,10 @@ export class ProjectsController {
     }>,
   ) {
     return this.projects.update(id, body);
+  }
+
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.projects.delete(id);
   }
 }

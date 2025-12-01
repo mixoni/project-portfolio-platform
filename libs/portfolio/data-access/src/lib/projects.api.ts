@@ -56,6 +56,31 @@ export class ProjectsApi {
     return request$;
   }
 
+  getProject(id: number): Observable<Project> {
+    const cacheKey = `project:${id}`;
+
+    const cached = this.cache.get<Project>(cacheKey, this.config.cacheTtlMs);
+    if (cached) {
+      return of(cached);
+    }
+
+    const inFlight = this.cache.getInflight<Project>(cacheKey);
+    if (inFlight) {
+      return inFlight;
+    }
+
+    const request$ = this.http
+      .get<Project>(`${this.config.baseUrl}/projects/${id}`)
+      .pipe(
+        tap((project) => this.cache.set<Project>(cacheKey, project)),
+        shareReplay(1),
+        finalize(() => this.cache.getInflight(cacheKey)),
+      );
+
+    this.cache.setInflight(cacheKey, request$);
+    return request$;
+  }
+
   createProject(data: Partial<Project>): Observable<Project> {
     return this.http
       .post<Project>(`${this.config.baseUrl}/projects`, data)

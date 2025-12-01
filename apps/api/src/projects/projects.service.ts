@@ -51,4 +51,12 @@ export class ProjectsService {
     return this.repo.save({ ...(partial as any), id });
   }
 
+  async delete(id: number) {
+    const project = await  this.repo.findOneBy({ id });
+    if (!project) {
+      throw new Error('Project not found');
+    }
+    return this.repo.delete(id);
+  }
+
 }

@@ -1,0 +1,74 @@
+<form class="pf-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="pf-row">
+      <!-- Name -->
+      <div class="pf-field">
+        <label>Name</label>
+        <input type="text" formControlName="name" />
+      </div>
+  
+      <!-- Status -->
+      <div class="pf-field">
+        <label>Status</label>
+        <select formControlName="status">
+          <option value="PLANNED">Planned</option>
+          <option value="IN_PROGRESS">In progress</option>
+          <option value="COMPLETED">Completed</option>
+        </select>
+      </div>
+    </div>
+  
+    <div class="pf-row">
+      <!-- Owner -->
+      <div class="pf-field">
+        <label>Owner</label>
+        <input type="text" formControlName="owner" />
+      </div>
+  
+      <!-- Risk -->
+      <div class="pf-field">
+        <label>Risk</label>
+        <select formControlName="riskLevel">
+          <option value="LOW">Low</option>
+          <option value="MEDIUM">Medium</option>
+          <option value="HIGH">High</option>
+        </select>
+      </div>
+    </div>
+  
+    <div class="pf-row">
+      <!-- Budget -->
+      <div class="pf-field">
+        <label>Budget (€)</label>
+        <input type="number" formControlName="budget" />
+      </div>
+  
+      <!-- Start date -->
+      <div class="pf-field">
+        <label>Start</label>
+        <input type="date" formControlName="startDate" />
+      </div>
+    </div>
+  
+    <div class="pf-row">
+      <!-- End date -->
+      <div class="pf-field">
+        <label>End</label>
+        <input type="date" formControlName="endDate" />
+      </div>
+    </div>
+  
+    <!-- API error -->
+    <div *ngIf="error" class="pf-error">
+      {{ error }}
+    </div>
+  
+    <div class="pf-actions">
+      <button type="button" (click)="cancelled.emit()">Cancel</button>
+      <button type="submit" [disabled]="form.invalid || saving">
+        {{ saving ? 'Saving...' : 'Save' }}
+      </button>
+    </div>
+  
+  </form>
+  

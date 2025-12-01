@@ -39,8 +39,8 @@
         [columns]="columns" 
         [loading]="loading()"
         [emptyMessage]="'No projects found'" 
-        [clickableRows]="true"
-        (rowClick)="onProjectRowClick($event)">
+        [actions]="rowActions" 
+        (action)="onRowAction($event)">
     </shared-data-table>
 
     <div class="loading-indicator" *ngIf="loading()">

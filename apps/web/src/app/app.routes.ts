@@ -19,7 +19,12 @@ export const appRoutes: Routes = [
           import('./features/projects/project-create/project-create.component').then(m => m.ProjectCreateComponent),
         canActivate: [AuthGuard],
       },
-
+      {
+        path: 'projects/:id/edit',
+        loadComponent: () =>
+          import('./features/projects/project-edit/project-edit.component')
+            .then(m => m.ProjectEditPageComponent),
+      },
       {
         path: 'login',
         loadComponent: () =>

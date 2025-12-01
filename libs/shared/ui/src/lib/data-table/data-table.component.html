@@ -22,7 +22,14 @@
           [class.pp-row-clickable]="clickableRows"
         >
           <td *ngFor="let col of columns">
-            {{ getCell(row, col) }}
+            {{
+              getCell(row, col)
+                | displayValue:
+                    (col.emptyPlaceholder || '—'):
+                    (col.format || 'text'):
+                    undefined:
+                    (col.currency || 'EUR')
+            }}
           </td>
         </tr>
 

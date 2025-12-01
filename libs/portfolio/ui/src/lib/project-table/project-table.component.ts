@@ -8,12 +8,7 @@ import { DataTableComponent } from '@shared/ui/data-table';
   selector: 'portfolio-project-table',
   standalone: true,
   imports: [CommonModule, DataTableComponent],
-  template: `
-    <shared-data-table
-      [rows]="projects"
-      [columns]="effectiveColumns()"
-    ></shared-data-table>
-  `,
+  templateUrl: './project-table.component.html',
 })
 export class ProjectTableComponent {
   @Input() projects: Project[] = [];

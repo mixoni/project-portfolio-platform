@@ -49,29 +49,25 @@ export class ProjectListComponent implements OnInit {
     { key: 'name', header: 'Name' },
     { key: 'status', header: 'Status' },
     { key: 'owner', header: 'Owner' },
-    { key: 'riskLevel', header: 'Risk' },
+    { key: 'riskLevel', header: 'Risk', align: 'center' },
     {
       key: 'budget',
       header: 'Budget',
-      cell: (p) =>
-        p.budget != null
-          ? `${p.budget.toLocaleString('en-US', {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })} €`
-          : '',
+      format: 'currency',
+      align: 'right',
     },
     {
       key: 'startDate',
       header: 'Start',
-      cell: (p) => (p.startDate ? new Date(p.startDate).toISOString().slice(0, 10) : ''),
+      format: 'date',
     },
     {
       key: 'endDate',
       header: 'End',
-      cell: (p) => (p.endDate ? new Date(p.endDate).toISOString().slice(0, 10) : ''),
+      format: 'date',
     },
   ];
+
 
   // computed that creates the filter object
   private readonly currentFilter = computed(() => {

@@ -1,11 +1,13 @@
+// data-table.component.ts
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ColumnDef } from '../table-types';
+import { DisplayValuePipe } from '../pipes/display-value/display-value.pipe';
 
 @Component({
   selector: 'shared-data-table',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DisplayValuePipe],
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss'],
 })
@@ -13,10 +15,8 @@ export class DataTableComponent<T extends Record<string, any>> {
   @Input() rows: T[] = [];
   @Input() columns: ColumnDef<T>[] = [];
   @Input() loading = false;
-  @Input() emptyMessage = 'No data to display';
   @Input() clickableRows = false;
-
-  @Output() rowClick = new EventEmitter<T>();
+  @Input() emptyMessage = 'No data to display';
 
   trackByIndex = (index: number, _row: unknown) => index;
 
@@ -24,14 +24,11 @@ export class DataTableComponent<T extends Record<string, any>> {
     if (col.cell) {
       return col.cell(row);
     }
-
-    const key = col.key as string;
-    return (row as any)[key] ?? '';
+    const key = col.key as keyof T;
+    return row[key] ?? null;
   }
 
-  onRowClicked(row: T) {
-    if (this.clickableRows) {
-      this.rowClick.emit(row);
-    }
+  onRowClicked(_row: T) {
+    // opcionalno: emit event ako ti treba
   }
 }

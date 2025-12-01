@@ -1,0 +1,18 @@
+<div class="card">
+    <div class="card__header" *ngIf="title || subtitle">
+      <div class="card__titles">
+        <h3 class="card__title" *ngIf="title">{{ title }}</h3>
+        <p class="card__subtitle" *ngIf="subtitle">{{ subtitle }}</p>
+      </div>
+  
+      <!-- slot za akcije -->
+      <div class="card__actions">
+        <ng-content select="[card-actions]"></ng-content>
+      </div>
+    </div>
+  
+    <div class="card__body">
+      <ng-content></ng-content>
+    </div>
+  </div>
+  

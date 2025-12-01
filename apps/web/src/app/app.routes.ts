@@ -16,7 +16,7 @@ export const appRoutes: Routes = [
       {
         path: 'projects/new',
         loadComponent: () =>
-          import('./features/projects/project-create.component').then(m => m.ProjectCreateComponent),
+          import('./features/projects/project-create/project-create.component').then(m => m.ProjectCreateComponent),
         canActivate: [AuthGuard],
       },
 

@@ -1,0 +1,77 @@
+.pp-page {
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  
+  .pp-page-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .pp-card.pp-form-card {
+    background: #ffffff;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  }
+  
+  .pp-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem 1.5rem;
+  }
+  
+  .pp-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+  
+    input,
+    select {
+      padding: 0.4rem 0.6rem;
+      border-radius: 0.5rem;
+      border: 1px solid #d0d4dd;
+      font-size: 0.9rem;
+    }
+  }
+  
+  .pp-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  
+  .pp-btn {
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background: #e4e7ee;
+    cursor: pointer;
+  }
+  
+  .pp-btn-primary {
+    background: #2563eb;
+    color: white;
+  }
+  
+  .pp-error {
+    color: #b91c1c;
+    font-size: 0.75rem;
+  }
+  
+  .pp-alert.pp-alert-error {
+    margin-top: 1rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 0.5rem;
+    background: #fee2e2;
+    color: #991b1b;
+  }
+  

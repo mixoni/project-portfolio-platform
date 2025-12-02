@@ -1,5 +1,5 @@
 <section>
-  <div>Default table from UI library</div>
+  <h2>Data table from UI library</h2>
   <shared-data-table
     [rows]="filteredProjects()"
     [columns]="columns"
@@ -18,19 +18,16 @@
     (editRow)="onEditProject($event)"
     (deleteRow)="onDeleteProject($event)"
   >
-    <div
-      ppTableFilters
-      class="pp-filter-row"
-    >
-      <label>
-        Status:
-        <select [(ngModel)]="statusFilterModel">
-          <option value="ALL">All</option>
-          <option value="PLANNED">Planned</option>
-          <option value="IN_PROGRESS">In progress</option>
-          <option value="COMPLETED">Completed</option>
-        </select>
-      </label>
-    </div>
+  <div ppTableFilters class="pp-filter-row">
+    <label class="pp-filter">
+      <span class="pp-filter-label">Status</span>
+      <select [(ngModel)]="statusFilterModel">
+        <option value="ALL">All</option>
+        <option value="PLANNED">Planned</option>
+        <option value="IN_PROGRESS">In progress</option>
+        <option value="COMPLETED">Completed</option>
+      </select>
+    </label>
+  </div>
   </shared-data-table>
 </section>

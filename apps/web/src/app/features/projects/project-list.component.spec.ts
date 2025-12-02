@@ -21,7 +21,7 @@ describe('ProjectListComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        ProjectListComponent,     // standalone komponenta
+        ProjectListComponent,     // standalone component
         RouterTestingModule,      
       ],
       providers: [

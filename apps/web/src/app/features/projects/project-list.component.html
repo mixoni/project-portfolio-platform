@@ -1,7 +1,7 @@
 <section>
   <div>Default table from UI library</div>
   <shared-data-table
-    [rows]="projects()"
+    [rows]="filteredProjects()"
     [columns]="columns"
     [loading]="loading()"
     [emptyMessage]="'No projects found'"

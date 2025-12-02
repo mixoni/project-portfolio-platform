@@ -23,6 +23,9 @@ export class ProjectListComponent implements OnInit {
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
 
+  private readonly _searchTerm = signal('');
+  readonly searchTerm = this._searchTerm.asReadonly();
+
   private readonly _statusFilter = signal<'ALL' | 'PLANNED' | 'IN_PROGRESS' | 'COMPLETED'>('ALL');
   private readonly _ownerFilter = signal('');
 
@@ -77,6 +80,22 @@ export class ProjectListComponent implements OnInit {
     };
   });
 
+
+  readonly filteredProjects = computed(() => {
+    const term = this._searchTerm().trim().toLowerCase();
+    const items = this.projects();
+
+    if (!term) {
+      return items;
+    }
+
+    return items.filter((p) => {
+      const name = (p.name ?? '').toLowerCase();
+      const owner = (p.owner ?? '').toLowerCase();
+      return name.includes(term) || owner.includes(term);
+    });
+  });
+
   ngOnInit(): void {
     this.reload();
   }
@@ -101,11 +120,7 @@ export class ProjectListComponent implements OnInit {
   }
 
   onSearchChanged(term: string) {
-    // npr. filtriraš preko owner/name ili šalješ kao query param API-ju
-    // ovde možeš da:
-    // - updejtuješ neki signal _searchTerm
-    // - i da pozoveš this.reload();
-    console.log('Global search term:', term);
+    this._searchTerm.set(term);
   }
 
   onCreateClicked() {

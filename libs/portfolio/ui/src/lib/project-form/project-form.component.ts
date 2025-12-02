@@ -1,40 +1,8 @@
-import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { Project } from '@portfolio/data-access';
-
-export type ProjectFormValue = {
-  name: string;
-  status: Project['status'];
-  owner: string;
-  riskLevel: Project['riskLevel'];
-  budget: number | null;
-  startDate: string | null;
-  endDate: string | null;
-};
-
-type ProjectFormGroup = FormGroup<{
-  name: FormControl<string>;
-  status: FormControl<Project['status']>;
-  owner: FormControl<string>;
-  riskLevel: FormControl<Project['riskLevel']>;
-  budget: FormControl<number | null>;
-  startDate: FormControl<string | null>;
-  endDate: FormControl<string | null>;
-}>;
+import { CommonModule } from "@angular/common";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { Project } from "@portfolio/data-access";
+import { ProjectFormGroup, ProjectFormValue } from "./project-form.types";
 
 @Component({
   selector: 'portfolio-project-form',
@@ -46,12 +14,25 @@ type ProjectFormGroup = FormGroup<{
 })
 export class ProjectFormComponent {
   @Input() title: string | null = null;
-  @Input() initialValue: Partial<Project> | null = null;
+
+  private _initialValue: Partial<Project> | null = null;
+
+  @Input()
+  set initialValue(value: Partial<Project> | null) {
+    this._initialValue = value;
+
+    if (value) {
+      this.patchInitial(value);
+    }
+  }
+  get initialValue() {
+    return this._initialValue;
+  }
+
   @Input() loading = false;
   @Input() saving = false;
   @Input() error: string | null = null;
   @Input() appearance: 'default' | 'compact' = 'default';
-
 
   @Output() submitted = new EventEmitter<ProjectFormValue>();
   @Output() cancelled = new EventEmitter<void>();
@@ -78,25 +59,26 @@ export class ProjectFormComponent {
       startDate: this.fb.control<string | null>(null),
       endDate: this.fb.control<string | null>(null),
     });
-
-    if (this.initialValue) {
-      this.patchInitial(this.initialValue);
-    }
   }
 
   private patchInitial(value: Partial<Project>) {
+    console.log('value', value);
+    console.log('budget type', typeof value.budget);
+
     this.form.patchValue({
       name: value.name ?? '',
       status: value.status ?? 'PLANNED',
       owner: value.owner ?? '',
       riskLevel: value.riskLevel ?? 'MEDIUM',
-      budget: value.budget ?? null,
+      budget: value?.budget ?? 0,
       startDate: value.startDate ?? null,
       endDate: value.endDate ?? null,
     });
   }
 
-  get f() { return this.form.controls; }
+  get f() {
+    return this.form.controls;
+  }
 
   onSubmit() {
     if (this.form.invalid) {
@@ -109,24 +91,5 @@ export class ProjectFormComponent {
 
   onCancel() {
     this.cancelled.emit();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['initialValue'] && this.initialValue) {
-      const v: ProjectFormValue = {
-        name: this.initialValue.name ?? '',
-        status: this.initialValue.status ?? 'PLANNED',
-        owner: this.initialValue.owner ?? '',
-        riskLevel: this.initialValue.riskLevel ?? 'MEDIUM',
-        budget:
-          typeof this.initialValue.budget === 'number'
-            ? this.initialValue.budget
-            : null,
-        startDate: this.initialValue.startDate ?? null,
-        endDate: this.initialValue.endDate ?? null,
-      };
-
-      this.form.patchValue(v);
-    }
   }
 }

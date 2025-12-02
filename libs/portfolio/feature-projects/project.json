@@ -1,5 +1,19 @@
 {
   "name": "portfolio-feature-projects",
+  "root": "libs/portfolio/feature-projects",
+  "sourceRoot": "libs/portfolio/feature-projects/src",
   "projectType": "library",
-  "sourceRoot": "libs/portfolio/feature-projects/src"
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/portfolio/feature-projects"
+      ],
+      "options": {
+        "jestConfig": "libs/portfolio/feature-projects/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
 }

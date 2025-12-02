@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-    displayName: 'portfolio-data-access',
+    displayName: 'portfolio-feature-projects',
     preset: '../../../jest.preset.js',
     testEnvironment: 'jsdom',
     setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
@@ -16,6 +16,6 @@ export default {
     },
     transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
     moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
-    coverageDirectory: '../../../coverage/libs/portfolio-data-access',
+    coverageDirectory: '../../../coverage/libs/portfolio/portfolio-feature-projects',
   };
   

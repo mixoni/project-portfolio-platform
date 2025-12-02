@@ -1,5 +1,17 @@
 {
   "name": "portfolio-data-access",
+  "root": "libs/portfolio/data-access",
+  "sourceRoot": "libs/portfolio/data-access/src",
   "projectType": "library",
-  "sourceRoot": "libs/portfolio/data-access/src"
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",    
+      "outputs": ["{workspaceRoot}/coverage/libs/portfolio/data-access"],
+      "options": {
+        "jestConfig": "libs/portfolio/data-access/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
 }

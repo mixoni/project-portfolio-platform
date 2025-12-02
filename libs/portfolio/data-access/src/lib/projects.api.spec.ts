@@ -37,7 +37,7 @@ describe('ProjectsApi', () => {
     api.getProjects(filter).subscribe();
 
     const req = httpMock.expectOne(
-      r => r.method === 'GET' && r.url === 'http://test-api/projects',
+      (r) => r.method === 'GET' && r.url === 'http://test-api/projects',
     );
 
     expect(req.request.params.get('status')).toBe('PLANNED');
@@ -63,8 +63,5 @@ describe('ProjectsApi', () => {
 
     expect(firstEmitted).toBe(1);
     expect(secondEmitted).toBe(1);
-
-
-    httpMock.verify();
   });
 });

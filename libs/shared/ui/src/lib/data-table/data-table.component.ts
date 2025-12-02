@@ -20,6 +20,7 @@ export class DataTableComponent<T extends Record<string, any>> {
   @Input() actions: RowAction[] = [];
 
   @Output() action = new EventEmitter<{ actionId: string; row: T }>();
+  @Output() rowClicked = new EventEmitter<T>();
 
   openMenuIndex: number | null = null;
 

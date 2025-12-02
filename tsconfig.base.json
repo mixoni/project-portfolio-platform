@@ -7,9 +7,6 @@
       "@portfolio/data-access": [
         "libs/portfolio/data-access/src/public-api.ts"
       ],
-      "@portfolio/feature-projects": [
-        "libs/portfolio/feature-projects/src/public-api.ts"
-      ],
       "@portfolio/ui": ["libs/portfolio/ui/src/public-api.ts"],
       "@shared/ui": ["libs/shared/ui/src/public-api.ts"],
       "@shared/util": ["libs/shared/util/src/public-api.ts"]

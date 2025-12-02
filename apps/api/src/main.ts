@@ -10,6 +10,7 @@ async function bootstrap() {
       origin: 'http://localhost:4200',
       credentials: true,
     });
+    console.log('Starting Nest application... listening on port', process.env.PORT || 3000);
     await app.listen(process.env.PORT || 3000);
   }catch (err) {
     console.error('Nest bootstrap failed:', err);

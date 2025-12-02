@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
 import { Project, ProjectsApi } from '@portfolio/data-access';
-import { ColumnDef, DataTableComponent, RowAction } from '@shared/ui';
+import { ColumnDef, DataTableComponent } from '@shared/ui';
 
 @Component({
   selector: 'app-project-list',
@@ -22,7 +22,6 @@ export class ProjectListComponent implements OnInit {
 
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
-
 
   private readonly _statusFilter = signal<'ALL' | 'PLANNED' | 'IN_PROGRESS' | 'COMPLETED'>('ALL');
   private readonly _ownerFilter = signal('');
@@ -67,7 +66,6 @@ export class ProjectListComponent implements OnInit {
     },
   ];
 
-
   // computed that creates the filter object
   private readonly currentFilter = computed(() => {
     const status = this._statusFilter();
@@ -102,39 +100,6 @@ export class ProjectListComponent implements OnInit {
     });
   }
 
-  readonly rowActions: RowAction[] = [
-    { id: 'edit', label: 'Edit project' },
-    { id: 'delete', label: 'Delete project', kind: 'danger' },
-  ];
-
-  onRowAction(event: { actionId: string; row: Project }) {
-    const { actionId, row } = event;
-    if (!row?.id) return;
-
-    if (actionId === 'edit') {
-      this.router.navigate(['/projects', row.id, 'edit']);
-    }
-
-    if (actionId === 'delete') {
-      this.confirmDelete(row);
-    }
-  }
-
-  private confirmDelete(project: Project) {
-    const ok = window.confirm(`Delete project "${project.name}"?`);
-    if (!ok || !project.id) return;
-
-    this.api.deleteProject(project.id).subscribe({
-      next: () => {
-        this._projects.update(list => list.filter(p => p.id !== project.id));
-      },
-      error: (err) => {
-        console.error(err);
-        this.error.set('Failed to delete project');
-      },
-    });
-  }
-
   onSearchChanged(term: string) {
     // npr. filtriraš preko owner/name ili šalješ kao query param API-ju
     // ovde možeš da:
@@ -142,7 +107,7 @@ export class ProjectListComponent implements OnInit {
     // - i da pozoveš this.reload();
     console.log('Global search term:', term);
   }
-  
+
   onCreateClicked() {
     this.router.navigate(['/projects/new']);
   }
@@ -153,7 +118,7 @@ export class ProjectListComponent implements OnInit {
 
   onDeleteProject(project: Project) {
     if (!confirm(`Delete project "${project.name}"?`)) return;
-  
+
     this.api.deleteProject(project.id).subscribe({
       next: () => this.reload(),
       error: (err) => {
@@ -162,5 +127,4 @@ export class ProjectListComponent implements OnInit {
       },
     });
   }
-
 }

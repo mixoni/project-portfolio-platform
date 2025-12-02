@@ -117,3 +117,4 @@ Thumbs.db
 #  Optional: Nx plugin caches
 # ----------------------------------------
 .nx/cache/
+.prettierrc

@@ -1,165 +1,203 @@
 :host {
-    display: block;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-      sans-serif;
-    font-size: 0.875rem;
-    color: #0f172a;
-  }
-  
-  /* Wrapper oko tabele (scroll, border, radius) */
-  .pp-table-wrapper {
-    border: 1px solid #e5e7eb;
-    border-radius: 0.75rem;
-    // overflow: auto;
-    max-height: 480px;
-    background-color: #ffffff;
-  }
-  
-  /* Tabela */
-  .pp-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 640px;
-  }
-  
-  /* Header */
-  .pp-table thead th {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  
-    text-align: left;
-    padding: 0.75rem 1rem;
-    font-weight: 600;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  
-    background: #0f172a;
-    color: #e5e7eb;
-    border-bottom: 1px solid #1e293b;
-  }
-  
-  /* Ćelije */
-  .pp-table tbody td {
-    padding: 0.6rem 1rem;
-    border-bottom: 1px solid #e5e7eb;
-    white-space: nowrap;
-  }
-  
-  /* Zebra efekat */
-  .pp-table tbody tr:nth-child(even) td {
-    background-color: #f9fafb;
-  }
-  
-  /* Hover – ako je clickable */
-  .pp-row-clickable {
-    cursor: pointer;
-    transition: background-color 120ms ease-out;
-  }
-  
-  .pp-row-clickable:hover td {
-    background-color: #e5f0ff;
-  }
-  
-  /* Prazna tabela */
-  .pp-empty {
-    text-align: center;
-    padding: 1.5rem;
-    font-size: 0.85rem;
-    color: #6b7280;
-  }
-  
-  /* Loading skeleton */
-  .pp-table-wrapper.pp-loading {
-    padding: 0.75rem 1rem;
-  }
-  
-  .pp-skeleton-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  display: block;
+}
+
+.pp-table-wrapper {
+  margin-top: 1.5rem;
+  background: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+/* Toolbar */
+
+.pp-table-toolbar {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  &-left {
+    display: flex;
+    flex-wrap: wrap;
     gap: 0.75rem;
-    margin-bottom: 0.75rem;
-  }
-  
-  .pp-skeleton-cell {
-    height: 0.9rem;
-    border-radius: 999px;
-    background: linear-gradient(
-      90deg,
-      #e5e7eb 0%,
-      #f3f4f6 40%,
-      #e5e7eb 100%
-    );
-    background-size: 200% 100%;
-    animation: pp-skeleton 1.4s ease-in-out infinite;
-  }
-  
-  @keyframes pp-skeleton {
-    0% {
-      background-position: -200% 0;
-    }
-    100% {
-      background-position: 200% 0;
-    }
+    align-items: center;
   }
 
-  .pp-actions-cell {
-    width: 40px;
-    text-align: right;
-    position: relative;
-  }
-  
-  .pp-actions-wrapper {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .pp-actions-trigger {
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    padding: 0.25rem 0.35rem;
-    border-radius: 999px;
-    font-size: 1.1rem;
-    line-height: 1;
-    transition: background 0.15s ease;
-  
-    &:hover {
-      background: #e5e7eb;
+  &-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    input[type='search'] {
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      font-size: 0.9rem;
+      min-width: 220px;
+
+      &:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 1px #2563eb33;
+      }
     }
   }
-  
-  .pp-actions-menu {
-    position: absolute;
-    top: 1.6rem;
-    right: 0;
-    min-width: 120px;
-    background: #ffffff;
-    border-radius: 0.5rem;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
-    padding: 0.35rem 0;
-    z-index: 10;
-  }
-  
-  .pp-actions-menu li {
-    list-style: none;
-    padding: 0.35rem 0.75rem;
-    font-size: 0.85rem;
-    cursor: pointer;
-    white-space: nowrap;
-  
+}
+
+/* Buttons */
+
+.pp-btn {
+  border-radius: 999px;
+  padding: 0.4rem 0.95rem;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  white-space: nowrap;
+
+  &-primary {
+    background: #2563eb;
+    color: #fff;
+
     &:hover {
-      background: #f3f4f6;
+      background: #1d4ed8;
     }
   }
-  
-  .pp-actions-item-danger {
+}
+
+/* Table */
+
+.pp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.pp-table thead {
+  background: #020617;
+  color: #f9fafb;
+}
+
+.pp-table th,
+.pp-table td {
+  padding: 0.7rem 1rem;
+  text-align: left;
+}
+
+.pp-table th:first-child {
+  border-top-left-radius: 0.5rem;
+}
+.pp-table th:last-child {
+  border-top-right-radius: 0.5rem;
+}
+
+.pp-table tbody tr:nth-child(even) {
+  background: #f9fafb;
+}
+
+.pp-table tbody tr:hover {
+  background: #eef2ff;
+}
+
+.pp-row-clickable {
+  cursor: pointer;
+}
+
+/* Empty state */
+
+.pp-empty {
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+/* Skeleton */
+
+.pp-skeleton-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.pp-skeleton-cell {
+  height: 1.1rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #e5e7eb, #f3f4f6, #e5e7eb);
+  background-size: 200% 100%;
+  animation: pp-skeleton 1.3s infinite;
+}
+
+@keyframes pp-skeleton {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Row actions / context menu */
+
+.pp-actions-header {
+  width: 40px;
+}
+
+.pp-row-actions {
+  position: relative;
+  text-align: right;
+}
+
+.pp-icon-button {
+  border: none;
+  background: transparent;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  border-radius: 999px;
+
+  &:hover {
+    background: #e5e7eb;
+  }
+}
+
+.pp-row-menu {
+  position: absolute;
+  right: 0.5rem;
+  top: 2.2rem;
+  min-width: 140px;
+  background: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.2);
+  padding: 0.25rem 0;
+  z-index: 10;
+}
+
+.pp-row-menu button {
+  display: block;
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 0.45rem 0.85rem;
+  text-align: left;
+  font-size: 0.85rem;
+  cursor: pointer;
+
+  &:hover {
+    background: #eef2ff;
+  }
+
+  &.danger {
     color: #b91c1c;
-  
+
     &:hover {
       background: #fee2e2;
     }
   }
-  
-  
+}

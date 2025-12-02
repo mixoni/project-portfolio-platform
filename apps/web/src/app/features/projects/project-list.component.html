@@ -1,45 +1,33 @@
-<section class="projects-page">
-    <header class="projects-header">
-        <div>
-            <h1 class="page-title">Project Portfolio Demo</h1>
-            <p class="page-subtitle">Projects</p>
-        </div>
-
-        <div class="header-actions">
-            <a routerLink="/projects/new" class="btn-primary">+ New project</a>
-            <button class="btn-secondary" type="button" (click)="reload()" [disabled]="loading()">
-                {{ loading() ? 'Loading…' : 'Reload' }}
-            </button>
-        </div>
-    </header>
-
-    <section class="projects-filters">
+<section>
+    <div>Default table from UI library </div>
+    <shared-data-table
+    [rows]="projects()"
+    [columns]="columns"
+    [loading]="loading()"
+    [emptyMessage]="'No projects found'"
+    [clickableRows]="true"
+    (rowClick)="onEditProject($event)"
+    [showToolbar]="true"
+    [enableSearch]="true"
+    [searchPlaceholder]="'Search by owner or name…'"
+    [showCreateButton]="true"
+    [createLabel]="'New project'"
+    (searchChange)="onSearchChanged($event)"
+    (createClicked)="onCreateClicked()"
+    [showRowMenu]="true"
+    (editRow)="onEditProject($event)"
+    (deleteRow)="onDeleteProject($event)"
+    >
+    <div ppTableFilters class="pp-filter-row">
         <label>
-            Status
-            <select [(ngModel)]="statusFilterModel">
-                <option value="ALL">All</option>
-                <option value="PLANNED">Planned</option>
-                <option value="IN_PROGRESS">In progress</option>
-                <option value="COMPLETED">Completed</option>
-            </select>
+        Status:
+        <select [(ngModel)]="statusFilterModel">
+            <option value="ALL">All</option>
+            <option value="PLANNED">Planned</option>
+            <option value="IN_PROGRESS">In progress</option>
+            <option value="COMPLETED">Completed</option>
+        </select>
         </label>
-
-        <label>
-            Owner
-            <input type="text" placeholder="e.g. admin" [(ngModel)]="ownerFilterModel" />
-        </label>
-    </section>
-
-    <div *ngIf="error()" class="alert-error">
-        {{ error() }}
     </div>
-
-    <shared-data-table 
-        [rows]="projects()" 
-        [columns]="columns" 
-        [loading]="loading()"
-        [emptyMessage]="'No projects found'" 
-        [actions]="rowActions" 
-        (action)="onRowAction($event)">
     </shared-data-table>
 </section>

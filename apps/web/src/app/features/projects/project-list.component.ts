@@ -135,4 +135,32 @@ export class ProjectListComponent implements OnInit {
     });
   }
 
+  onSearchChanged(term: string) {
+    // npr. filtriraš preko owner/name ili šalješ kao query param API-ju
+    // ovde možeš da:
+    // - updejtuješ neki signal _searchTerm
+    // - i da pozoveš this.reload();
+    console.log('Global search term:', term);
+  }
+  
+  onCreateClicked() {
+    this.router.navigate(['/projects/new']);
+  }
+
+  onEditProject(project: Project) {
+    this.router.navigate(['/projects', project.id, 'edit']);
+  }
+
+  onDeleteProject(project: Project) {
+    if (!confirm(`Delete project "${project.name}"?`)) return;
+  
+    this.api.deleteProject(project.id).subscribe({
+      next: () => this.reload(),
+      error: (err) => {
+        console.error(err);
+        this.error.set('Failed to delete project');
+      },
+    });
+  }
+
 }

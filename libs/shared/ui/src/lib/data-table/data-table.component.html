@@ -1,4 +1,19 @@
 <div class="pp-table-wrapper" [class.pp-loading]="loading">
+  <div class="pp-table-toolbar" *ngIf="showToolbar">
+    <div class="pp-table-toolbar-left">
+      <ng-content select="[ppTableFilters]"></ng-content>
+    </div>
+
+    <div class="pp-table-toolbar-right">
+      <input *ngIf="enableSearch" type="search" [placeholder]="searchPlaceholder" [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchInput($event)" />
+
+      <button *ngIf="showCreateButton" type="button" class="pp-btn pp-btn-primary" (click)="onCreateClick()">
+        {{ createLabel }}
+      </button>
+    </div>
+  </div>
+
   <ng-container *ngIf="loading; else tableContent">
     <div class="pp-skeleton-row" *ngFor="let _ of [0, 1, 2, 3]">
       <div class="pp-skeleton-cell" *ngFor="let __ of columns"></div>
@@ -12,58 +27,48 @@
           <th *ngFor="let col of columns">
             {{ col.header }}
           </th>
-    
-          <th *ngIf="actions.length"></th>
+          <th *ngIf="showRowMenu" class="pp-actions-header"></th>
         </tr>
       </thead>
-    
+
       <tbody>
-        <tr *ngFor="let row of rows; let i = index; trackBy: trackByIndex">
+        <tr *ngFor="let row of rows; trackBy: trackByIndex; let i = index" (click)="onRowClicked(row)"
+          [class.pp-row-clickable]="clickableRows">
           <td *ngFor="let col of columns">
             {{
-              getCell(row, col) | displayValue:(col.emptyPlaceholder || '—'):(col.format || 'text'):undefined:(col.currency || 'EUR')
+            getCell(row, col)
+            | displayValue:
+            (col.emptyPlaceholder || '—'):
+            (col.format || 'text'):
+            undefined:
+            (col.currency || 'EUR')
             }}
           </td>
-    
-          <td *ngIf="actions.length" class="pp-actions-cell">
-            <div class="pp-actions-wrapper">
-              <button
-                type="button"
-                class="pp-actions-trigger"
-                (click)="toggleMenu(i, $event)"
-              >
-                ⋮
+
+          <td *ngIf="showRowMenu" class="pp-row-actions" (click)="$event.stopPropagation()">
+            <button type="button" class="pp-icon-button" (click)="toggleMenu(i)">
+              ⋮
+            </button>
+
+            <div class="pp-row-menu" *ngIf="menuOpenIndex === i">
+              <button type="button" (click)="onEdit(row)">Edit</button>
+              <button type="button" class="danger" (click)="onDelete(row)">
+                Delete
               </button>
-    
-              <ul
-                *ngIf="openMenuIndex === i"
-                class="pp-actions-menu"
-              >
-                <li
-                  *ngFor="let a of actions"
-                  (click)="onActionClick(a.id, row, $event)"
-                  [class.pp-actions-item-danger]="a.kind === 'danger'"
-                >
-                  {{ a.label }}
-                </li>
-              </ul>
             </div>
           </td>
         </tr>
-    
-        <tr *ngIf="!rows.length && !loading">
-          <td [attr.colspan]="columns.length + (actions.length ? 1 : 0)" class="pp-empty">
+
+        <tr *ngIf="rows.length === 0">
+          <td [attr.colspan]="columns.length + (showRowMenu ? 1 : 0)" class="pp-empty">
             {{ emptyMessage }}
           </td>
         </tr>
       </tbody>
     </table>
-    
   </ng-template>
 
   <ng-template #noColumns>
-    <div class="pp-empty">
-      No columns configured
-    </div>
+    <div class="pp-empty">No columns configured</div>
   </ng-template>
 </div>

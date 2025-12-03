@@ -6,15 +6,17 @@
     "nx": "nx",
     "start:web": "nx serve web",
     "start:api": "nx serve api",
+    "start:java-api": "npx nx serve java-api",
     "test:web": "nx test web",
     "test:api": "nx test api",
     "test:portfolio-data-access": "nx test portfolio-data-access",
     "test:shared-ui": "nx test shared-ui",
     "lint": "nx lint",
-    "e2e": "nx e2e",
+    "e2e": "NX_DAEMON=false npx nx e2e web --skip-nx-cache --verbose",
     "db:up": "docker-compose up -d",
     "db:down": "docker-compose down",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "storybook:shared":"npx nx storybook shared-ui"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "18.2.14",

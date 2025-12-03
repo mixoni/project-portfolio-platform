@@ -1,0 +1,19 @@
+{
+    "name": "java-api",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "root": "apps/java-api",
+    "sourceRoot": "apps/java-api/src",
+    "projectType": "application",
+    "targets": {
+      "serve": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "mvn -f apps/java-api/pom.xml spring-boot:run",
+          "env": {
+            "SPRING_BOOT_RUN_JVM_ARGUMENTS": "-Dserver.port=9001"
+          }
+        }
+      }
+    },
+    "tags": ["type:backend", "lang:java"]
+  }

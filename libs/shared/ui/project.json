@@ -1,18 +1,60 @@
 {
-    "name": "shared-ui",
-    "root": "libs/shared/ui",
-    "sourceRoot": "libs/shared/ui/src",
-    "projectType": "library",
-    "targets": {
-      "test": {
-        "executor": "@nx/jest:jest",
-        "outputs": ["{workspaceRoot}/coverage/libs/shared/ui"],
-        "options": {
-          "jestConfig": "libs/shared/ui/jest.config.ts",
-          "passWithNoTests": true
+  "name": "shared-ui",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/ui/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/ui"],
+      "options": {
+        "jestConfig": "libs/shared/ui/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "libs/shared/ui/.storybook",
+        "browserTarget": "shared-ui:build-storybook",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
         }
       }
     },
-    "tags": []
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/shared-ui",
+        "configDir": "libs/shared/ui/.storybook",
+        "browserTarget": "shared-ui:build-storybook",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "static-storybook": {
+      "executor": "@nx/web:file-server",
+      "dependsOn": ["build-storybook"],
+      "options": {
+        "buildTarget": "shared-ui:build-storybook",
+        "staticFilePath": "dist/storybook/shared-ui",
+        "spa": true
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "shared-ui:build-storybook:ci"
+        }
+      }
+    }
   }
-  
+}

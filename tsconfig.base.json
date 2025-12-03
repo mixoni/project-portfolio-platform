@@ -16,6 +16,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strict": true,
-    "types": ["node", "jest"]
+    "types": ["node", "jest"],
+    "skipLibCheck": true
   }
 }

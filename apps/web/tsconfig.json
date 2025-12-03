@@ -1,11 +1,13 @@
 {
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-        "types": [
-            "node"
-        ]
-    },
-    "files": [],
-    "include": [],
-    "references": []
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./cypress/tsconfig.json"
+    }
+  ]
 }

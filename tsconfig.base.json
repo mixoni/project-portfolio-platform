@@ -4,9 +4,7 @@
     "rootDir": ".",
     "baseUrl": ".",
     "paths": {
-      "@portfolio/data-access": [
-        "libs/portfolio/data-access/src/public-api.ts"
-      ],
+      "@portfolio/data-access": ["libs/portfolio/data-access/src/public-api.ts"],
       "@portfolio/ui": ["libs/portfolio/ui/src/public-api.ts"],
       "@shared/ui": ["libs/shared/ui/src/public-api.ts"],
       "@shared/util": ["libs/shared/util/src/public-api.ts"]
@@ -17,7 +15,6 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    // "useDecorators": true,
     "strict": true,
     "types": ["node", "jest"]
   }

@@ -118,3 +118,4 @@ Thumbs.db
 # ----------------------------------------
 .nx/cache/
 .prettierrc
+cypress.config.ts

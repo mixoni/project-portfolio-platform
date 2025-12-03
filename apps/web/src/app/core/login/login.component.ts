@@ -22,7 +22,7 @@ export class LoginComponent {
     this.error = null;
     this.auth.login(this.username, this.password).subscribe({
       next: () => this.router.navigate(['/projects']),
-      error: err => {
+      error: (err:any) => {
         this.error = err?.error?.message || 'Login failed';
       },
     });

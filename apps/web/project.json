@@ -1,28 +1,20 @@
 {
   "name": "web",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/web/src",
   "targets": {
     "build": {
       "executor": "@nx/angular:browser-esbuild",
-      "outputs": [
-        "{workspaceRoot}/dist/apps/web"
-      ],
+      "outputs": ["{workspaceRoot}/dist/apps/web"],
       "options": {
         "outputPath": "dist/apps/web",
         "index": "apps/web/src/index.html",
         "main": "apps/web/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/web/tsconfig.app.json",
-        "assets": [
-          "apps/web/src/favicon.ico",
-          "apps/web/src/assets"
-        ],
-        "styles": [
-          "apps/web/src/styles.css"
-        ],
+        "assets": ["apps/web/src/favicon.ico", "apps/web/src/assets"],
+        "styles": ["apps/web/src/styles.css"],
         "scripts": []
       }
     },
@@ -38,6 +30,14 @@
         "jestConfig": "apps/web/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "cypress.config.ts",
+        "testingType": "e2e"
+      },
+      "inputs": ["default", "^default"]
     }
   }
 }

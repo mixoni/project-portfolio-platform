@@ -45,7 +45,6 @@ export class ProjectListComponent implements OnInit {
     this.reload();
   }
 
-  // columns for the table
   readonly columns: ColumnDef<Project>[] = [
     { key: 'name', header: 'Name' },
     { key: 'status', header: 'Status' },
@@ -69,7 +68,6 @@ export class ProjectListComponent implements OnInit {
     },
   ];
 
-  // computed that creates the filter object
   private readonly currentFilter = computed(() => {
     const status = this._statusFilter();
     const owner = this._ownerFilter().trim();

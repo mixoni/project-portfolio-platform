@@ -3,7 +3,7 @@
       <h1 class="app-title">Project Portfolio Demo</h1>
       <h2 class="login-title">Sign in</h2>
   
-      <form (ngSubmit)="onLogin()" novalidate>
+      <form (ngSubmit)="onLogin()"  #f="ngForm">
         <div class="form-field">
           <label for="username">Email</label>
           <input
@@ -13,6 +13,7 @@
             [(ngModel)]="username"
             required
             autocomplete="email"
+            data-cy="login-email"
           />
         </div>
   
@@ -25,12 +26,13 @@
             [(ngModel)]="password"
             required
             autocomplete="current-password"
+            data-cy="login-password"
           />
         </div>
   
-        <button type="submit" class="btn-primary">Login</button>
+        <button [disabled]="f.invalid" type="submit" class="btn-primary" data-cy="login-submit">Login</button>
       </form>
-      <div *ngIf="error"> <p>{{error}}</p> </div>
+      <div *ngIf="error" data-cy="login-error"> <p>{{error}}</p> </div>
     </div>
   </div>
   
